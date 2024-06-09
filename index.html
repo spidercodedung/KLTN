@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Design</title>
+    <link rel="stylesheet" href="app.css">
+    <!-- leaflet css  -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+    <script type=module src="app.js"></script>
+</head>
+    <style>
+            body {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+    </style>
+<body>
+    <div id="wrapper">
+        <div id="title">
+            <div id="checkdata">10:20</div>
+            <div id="logo"></div>
+            <div id="header">
+                <h2>Reefer monitoring system</h2>
+                <button type ="button" class="History" onclick="openGoogleSheets()">DATA HISTORY</button>
+                <button type="button" class="Logout" onclick="Logout()">Log out</button>
+            </div>
+        </div>
+        <!-- end header --> 
+        <div id="main-content">
+            <div id="GPS_REALTIME">
+                <h3>Realtime GPS Tracker</h3>
+                <div id="map"></div>
+                <button type="button" id="Zoom" >Zoom</button>
+                
+            </div>
+              <div id="TEM_CONTROL">
+                <div id="monitoringTem">
+                    <h2><i class="fa-solid fa-temperature-low"></i> Temperature:<span id="temperatureValue"></span></h2>
+                </div>
+                <div id="controlingTem">
+                    <h2><i class="fas fa-network-wired"></i>TEMPERATURE CONTROL</h2>
+                        <h3>SETUP TEMP:<span id="temSetup"></span></h3>
+                    <form action="" method="">
+                        <input type="text" name="temValue" id="temValue" value="" placeholder="Input range: -10 to 30 °C" size="30">
+                    </form>
+                    <br/>
+                    <class class="container">
+                        <input id="sendButton" onclick="send()" type="button" value="Send">
+                        <input id="resetButton" onclick="resetForm()" type="button" value="Reset">
+                    </class>
+              </div>
+                </div>
+              </div>
+        </div>
+        <!-- end main-content  -->
+            <div id="footer">
+                <p> Copyright &copy; by Lam Tan Dung-20161299, Pham Tan Phuoc-20161352<br/>HCMC UNIVERSITY OF TECHNOLOGY AND EDUCATIONS</p>
+            </div>
+        <!-- end footer  -->
+        <script>
+            function openGoogleSheets() {
+                  window.open("https://docs.google.com/spreadsheets/d/1SNaow42NTdjn8lrnB6V27hYEQyBdQjDZc4QOnxYQrpk/edit#gid=0", "_blank");
+             }
+            function Logout() {
+                localStorage.removeItem("token");
+                isLogin = false;
+                window.location.href = "login.html"; 
+            }
+
+            function send(){
+                var arr = document.getElementsByTagName('input');
+                var temValue = arr[0].value;
+                if(temValue == ""){
+                        alert("Please fill all fields");
+                        return;
+                    }
+                if(isNaN(temValue)){
+                        alert("temValue must be a number");
+                        return;
+                    }
+                if(temValue<= -10 || temValue >= 30 ){
+                        alert("exceeds the allowable value");
+                        return;
+                }
+                var choice = confirm('confirm your information\n'+temValue +'°C');
+                if(choice == 1 ){
+                        alert('data sent');
+                        $.post("https://api.thingspeak.com/update?api_key=" + "YNBZKTS5NRS2YNU6" + "&field7=" + temValue, function(data) {
+                            console.log('Data sent successfully:', data);
+                            //document.getElementById('sendTem').textContent = temValue + '°C';
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            console.error('Failed to send data to ThingSpeak:', textStatus, errorThrown);
+                        });
+                        document.getElementsByTagName('form')[0].reset();
+                    }
+            }
+            function resetForm(){
+                document.getElementsByTagName('form')[0].reset();
+
+             }
+             
+        </script>
+    </div>
+</body>
+</html>
+<!-- leaflet js  -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<!--Jquery Lib-->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <title>Login</title>
+</head>
+
+<body onload="CheckLogin()">
+    <div class="wrapper">
+        <form action=""  id="form-login">
+            <h1 class="form-heading"> Administer </h1>
+            <div class="form-group">
+                <i class="far fa-user"></i>
+                <input type="text" class="form-input" placeholder="username" id="username">
+            </div>
+            <div class="form-group">
+                <i class="fas fa-key"></i>
+                <input type="password" class="form-input" placeholder="password" id="password">
+                <div class="eye">
+                    <i class="far fa-eye"></i>
+                </div>
+            </div>
+            <div class="remember-Change">
+                <label ><input type="checkbox" id="rememberMeCheckbox">Remember me</label>
+                <a href="#"class="changepassword-link"onclick="showChangePasswordForm()">Change Password?</a>
+            </div>
+            <input type="submit" value="log in" class="form-submit" onclick="Login()">
+        </form>
+
+
+        <form action="" id="form-changepassword" >
+            <h1 class="form-heading"> Change Password </h1>
+            <div class="form-group">
+                <i class="far fa-user"></i>
+                <input type="text" class="form-input" placeholder="Username" id="confirmusername">
+            </div>
+            <div class="form-group">
+                <i class="far fa-key"></i>
+                <input type="password" class="form-input" placeholder="Current Password" id="CurrentPassword">
+                <div class="eye">
+                    <i class="far fa-eye"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-key"></i>
+                <input type="password" class="form-input" placeholder="New Password" id="NewPassword">
+                <div class="eye">
+                    <i class="far fa-eye"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-key"></i>
+                <input type="password" class="form-input" placeholder="Confirm Password" id="ConfirmPassword">
+                <div class="eye">
+                    <i class="far fa-eye"></i>
+                </div>
+            </div>
+            <input type="submit" value="Submit" class="form-submit" onclick="ChangePassword()">
+            <div class="login-changepassword">
+                <p>Password change completed? <a href="#" class="login-link"onclick="showLoginForm()">Login</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="login.js"></script>
+</html>
