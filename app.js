@@ -71,7 +71,7 @@ $.getJSON("https://api.thingspeak.com/channels/2169158/fields/2/last.json?api_ke
                             setInterval(postDataToSheet(`${day}/${mon+1}/${yr}`, `${hour}:${min}:${sec}`, lat, long, `${temperature}°C`, `${setupTem}°C`), 1000);
                         }
 
-                        if (!isNaN(lat) && !isNaN(long)&&!isNaN(time)&&!isNaN(date)) {
+                        if (!isNaN(lat) && !isNaN(long)&&!isNaN(time)&&!isNaN(date)&& lat!==0 && long!==0) {
                         createMarker(lat, long, hour + ":" + min + ":" + sec, day + "/" + mon + "/" + yr);
                         } else {
                             console.error('Invalid latitude or longitude:', lat, long, time, date);
