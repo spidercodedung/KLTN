@@ -17,10 +17,10 @@ var currentPopup; // Biến để lưu trữ popup hiện tại
 var lastMarkerPosition = null; // Biến để lưu vị trí đã zoom gần nhất
 
 function fetchDataFromThingSpeak() {                                                
-$.getJSON("https://api.thingspeak.com/channels/2472765/fields/1/last.json?api_key=S8KSV0BX9R9FA5V4", function(result1) {
+$.getJSON("https://api.thingspeak.com/channels/2169158/fields/2/last.json?api_key=SLEEWW449CMWYSDI", function(result1) {
     var lat = Number(result1.field1);
     
-    $.getJSON("https://api.thingspeak.com/channels/2472765/fields/2/last.json?api_key=S8KSV0BX9R9FA5V4", function(result2) {
+    $.getJSON("https://api.thingspeak.com/channels/2169158/fields/3/last.json?api_key=SLEEWW449CMWYSDI", function(result2) {
         var long = Number(result2.field2);
         $.getJSON("https://api.thingspeak.com/channels/2169158/fields/1/last.json?api_key=SLEEWW449CMWYSDI", function(result3){
             var temperature = Number(result3.field1);
