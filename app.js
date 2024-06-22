@@ -53,12 +53,6 @@ $.getJSON("https://api.thingspeak.com/channels/2169158/fields/2/last.json?api_ke
                         var yr = 2000 + date % 100;
 
                         var now = new Date();
-
-                        var currentHours = String(now.getHours()).padStart(2,"0");
-                        var currentMinutes = String(now.getMinutes()).padStart(2,"0");
-
-                        const timeString = `${currentHours}:${currentMinutes}`;
-
                         var currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds());
                         var fetchedDate = new Date(yr, mon, day, hour, min, sec);
                         var diffInMinutes = (currentDate - fetchedDate) / 60000;
@@ -67,7 +61,7 @@ $.getJSON("https://api.thingspeak.com/channels/2169158/fields/2/last.json?api_ke
                             document.getElementById("checkdata").innerHTML = 'NO DATA';
                         }
                         else{
-                            document.getElementById("checkdata").innerHTML = timeString;
+                            document.getElementById("checkdata").innerHTML = "DATA NOW";
                             setInterval(postDataToSheet(`${day}/${mon+1}/${yr}`, `${hour}:${min}:${sec}`, lat, long, `${temperature}°C`, `${setupTem}°C`), 1000);
                         }
 
